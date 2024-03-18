@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ProjectName>ServerAuthenticationCoturn</ProjectName>
+    <ProjectGuid>312dd217-c538-4133-b826-021cd7b28019</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestClient\TurnClient.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,60 @@
+﻿{
+  "server": {
+    "port": 13000
+  },
+  "coturn": {
+    "adress": "192.168.206.128",
+    "port_turn": "3478",
+    "username": "testuser:password"
+  },
+  "CoturnConnections": {
+    "VirtualMachine": {
+      "Url": "testcoturn.com",
+      "Ip": "192.168.206.128",
+      "Port": "3478",
+      "PortTls": "5349",
+      "User": "user",
+      "Password": "pass",
+      "Realm": "realm",
+      "Secret": "north"
+    },
+    "VirtualBox": {
+      "Url": "testcoturn.com",
+      "Ip": "192.168.0.25",
+      "Port": "3478",
+      "PortTls": "5349",
+      "User": "user",
+      "Password": "pass",
+      "Realm": "",
+      "Secret": "north"
+    },
+    "Softorium": {
+      "Url": "coturn.softorium.pro",
+      "Ip": "95.181.45.166",
+      "Port": "3478",
+      "PortTls": "5349",
+      "User": "username1",
+      "Password": "password1",
+      "Realm": "coturn.softorium.pro",
+      "Secret": "north"
+    }
+  },
+  "authentication": {
+    "enabled": false,
+    "username": "username",
+    "password": "password"
+  },
+  "firewall": {
+    "enabled": true,
+    "rules": [
+      {
+        "pattern": ".*reddit.com",
+        "action": "allow"
+      },
+      {
+        "pattern": ".*bbc.co.uk",
+        "action": "deny"
+      }
+    ]
+  }
+}

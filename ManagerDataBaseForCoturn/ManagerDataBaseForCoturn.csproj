@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ProjectName>ManagerDataBaseForCoturn</ProjectName>
+    <ProjectGuid>b7a059e3-eb8a-4f47-917e-bbdaa7f15ef2</ProjectGuid>
+  </PropertyGroup>
+</Project>
