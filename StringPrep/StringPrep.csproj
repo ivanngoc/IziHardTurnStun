@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProjectName>StringPrep</ProjectName>
+    <ProjectGuid>6b733a03-e72d-4507-8eaf-8d8f141f8479</ProjectGuid>
+    <Author>Tran Ngoc Anh</Author>
+    <Company>IziHardGames</Company>
+  </PropertyGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

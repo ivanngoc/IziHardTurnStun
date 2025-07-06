@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <ProjectName>LibNetStandart2.1</ProjectName>
+    <ProjectGuid>b6149dd8-071d-4fe8-9f16-e84a466b5374</ProjectGuid>
+    <Author>Tran Ngoc Anh</Author>
+    <Company>IziHardGames</Company>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.IO.Pipelines" />
+  </ItemGroup>
+</Project>

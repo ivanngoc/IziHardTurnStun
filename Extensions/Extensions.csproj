@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ProjectName>Extensions</ProjectName>
+    <ProjectGuid>7e140031-c2ed-41b4-a738-c593fb92347d</ProjectGuid>
+    <Author>Tran Ngoc Anh</Author>
+    <Company>IziHardGames</Company>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.IO.Pipelines" />
+  </ItemGroup>
+</Project>

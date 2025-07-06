@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ProjectName>TurnServer</ProjectName>
+    <ProjectGuid>926a44d8-9fa0-47f6-bd52-4cefbb269ec7</ProjectGuid>
+    <Author>Tran Ngoc Anh</Author>
+    <Company>IziHardGames</Company>
+  </PropertyGroup>
+</Project>

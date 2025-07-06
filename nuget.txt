@@ -1,0 +1,4 @@
+https://www.nuget.org/packages/Microsoft.Extensions.Configuration/
+https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Json/6.0.0?_src=template
+https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Abstractions/6.0.0?_src=template
+https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/6.0.0?_src=template

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ProjectName>TurnHub</ProjectName>
+    <ProjectGuid>1a9e4ea4-9217-46ce-b4d7-690f9a89f7e0</ProjectGuid>
+    <Author>Tran Ngoc Anh</Author>
+    <Company>IziHardGames</Company>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.IO.Pipelines" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibNetStandart2.1\LibNetStandart2.1.csproj" />
+    <ProjectReference Include="..\STUN\STUN.csproj" />
+    <ProjectReference Include="..\TURN\TURN.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProjectName>ICE</ProjectName>
+    <ProjectGuid>30976803-b053-4fd6-9c5c-f794730dada7</ProjectGuid>
+    <Author>Tran Ngoc Anh</Author>
+    <Company>IziHardGames</Company>
+  </PropertyGroup>
+</Project>

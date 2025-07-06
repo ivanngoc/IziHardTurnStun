@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <ProjectName>TurnClient</ProjectName>
+    <ProjectGuid>80e8223e-5fcf-44c5-976f-00cf9935732b</ProjectGuid>
+    <Author>Tran Ngoc Anh</Author>
+    <Company>IziHardGames</Company>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ReactorLocation>""</ReactorLocation>
+    <ReactorProject>"ReactorProject"</ReactorProject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Networking\**" />
+    <Compile Remove="Third Party\**" />
+    <EmbeddedResource Remove="Networking\**" />
+    <EmbeddedResource Remove="Third Party\**" />
+    <None Remove="Networking\**" />
+    <None Remove="Third Party\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Proxy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="PreEmptive.Protection.Checks.Attributes" Version="2.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\StringPrep\StringPrep.csproj" />
+    <ProjectReference Include="..\Extensions\Extensions.csproj" />
+    <ProjectReference Include="..\LibNetStandart2.1\LibNetStandart2.1.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Proxy.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' != 'Debug'">
+    <Exec Command="&quot;C:\Program Files (x86)\Eziriz\.NET Reactor\dotNET_Reactor.Console.exe&quot; -file &quot;$(TargetPath)&quot; -targetfile &quot;$(TargetPath)&quot; - control_flow_obfuscation 1 -q." />
+  </Target>
+</Project>

@@ -1,0 +1,87 @@
+<Project>
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <NoWarn>$(NoWarn);1591;1587;1584;1570;1573</NoWarn>
+    <WarningsNotAsErrors>CS0162;CS0660;CS0661;CS0414;CS0169;CS0067;CS0649</WarningsNotAsErrors>
+    <!--<CentralPackageVersionOverrideEnabled>true</CentralPackageVersionOverrideEnabled>-->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Bogus" Version="35.6.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <!--<PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />-->
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.6" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.6" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.1" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
+    <PackageVersion Include="EFCore.NamingConventions" Version="9.0.0" />
+    <PackageVersion Include="Npgsql" Version="9.0.2" />
+    <!--<PackageVersion Include="CassandraCSharpDriver" Version="3.22.0" />-->
+  </ItemGroup>
+  <ItemGroup>
+    <!--<PackageVersion Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />-->
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.1" />
+  
+    <PackageVersion Include="System.Text.Json" Version="9.0.1" />
+    <PackageVersion Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+    <PackageVersion Include="System.IO.Pipelines" Version="7.0.0" />
+
+  </ItemGroup>
+  <ItemGroup>
+    <!--<PackageVersion Include="HtmlAgilityPack" Version="1.11.74" />
+    <PackageVersion Include="HtmlAgilityPack.CssSelectors.NetCore" Version="1.2.1" />
+    <PackageVersion Include="Selenium.WebDriver" Version="4.28.0" />
+    <PackageVersion Include="Selenium.WebDriver.ChromeDriver" Version="133.0.6943.12600" />
+    <PackageVersion Include="Selenium.WebDriver.GeckoDriver" Version="0.35.0" />-->
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="MassTransit" Version="8.3.6" />
+    <PackageVersion Include="MassTransit.Abstractions" Version="8.3.6" />
+    <PackageVersion Include="MassTransit.EntityFrameworkCore" Version="8.3.6" />
+    <PackageVersion Include="MassTransit.SqlTransport.PostgreSQL" Version="8.3.6" />
+    <PackageVersion Include="MassTransit.RabbitMQ" Version="8.3.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.0.9" />
+  </ItemGroup>
+  <ItemGroup>
+    <!--<PackageVersion Include="IziHardGames.WebAutomatization.Contracts" Version="0.0.4" />
+    <PackageVersion Include="IziHardGames.AsyncCommunication" Version="0.0.12" />
+    <PackageVersion Include="IziHardGames.Contracts.FetchThroughBrowserExtension" Version="0.0.22" />
+    <PackageVersion Include="IziHardGames.IziHAR.Application" Version="0.0.4" />
+    <PackageVersion Include="IziHardGames.IziHttpAsJson" Version="0.0.2" />
+    <PackageVersion Include="IziHardGames.Selenium" Version="0.0.37" />
+    <PackageVersion Include="IziHardGames.ErrorHandling" Version="0.0.2" />
+    <PackageVersion Include="IziHardGames.ErrorHandling.AspNetCore" Version="0.0.1" />
+    <PackageVersion Include="IziHardGames.DomControl.Client" Version="0.0.16" />-->
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.7" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.1" />
+    <!--<PackageVersion Include="Moq" Version="4.20.69" />-->
+    <!--<PackageVersion Include="Moq.AutoMock" Version="3.5.0" />-->
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Testcontainers" Version="4.6.0" />
+    <PackageVersion Include="Testcontainers.PostgreSql" Version="4.6.0" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>IziHardGames.Libs.TURN</RootNamespace>
+    <ProjectName>Lib_TURN_STUN</ProjectName>
+    <ProjectGuid>c5e3e01b-2f81-4958-8217-44ae44c2084c</ProjectGuid>
+    <Author>Tran Ngoc Anh</Author>
+    <Company>IziHardGames</Company>
+  </PropertyGroup>
+</Project>

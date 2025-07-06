@@ -1,0 +1,30 @@
+﻿<Project DefaultTargets="ReactorCall" Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <ProjectName>TestClient_ReactorDeploy_ReactorDeploy</ProjectName>
+    <ProjectGuid>3eda7163-c16c-48b6-87aa-859c44348726</ProjectGuid>
+    <Author>Tran Ngoc Anh</Author>
+    <Company>IziHardGames</Company>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ReactorLocation>""</ReactorLocation>
+    <ReactorProject>"ReactorProject"</ReactorProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Proxy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="PreEmptive.Protection.Checks.Attributes" Version="2.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
+    <PackageReference Include="Titanium.Web.Proxy" Version="3.1.1397" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Proxy.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Target Name="ReactorCall" AfterTargets="Compile">
+    <Exec Command="$(ReactorLocation) -file &quot;$(ProjectDir)$(IntermediateOutputPath)$(TargetFileName)&quot; -targetfile &quot;$(ProjectDir)$(IntermediateOutputPath)$(TargetFileName)&quot;" Condition="'$(ConfigurationName)' == 'Debug' " />
+  </Target>
+</Project>

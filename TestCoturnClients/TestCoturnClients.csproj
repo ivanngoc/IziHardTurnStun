@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ProjectName>TestCoturnClients</ProjectName>
+    <ProjectGuid>ee6905ef-1813-41ca-b90c-6d963506dd18</ProjectGuid>
+    <Author>Tran Ngoc Anh</Author>
+    <Company>IziHardGames</Company>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Extensions\Extensions.csproj" />
+    <ProjectReference Include="..\LibNetStandart2.1\LibNetStandart2.1.csproj" />
+    <ProjectReference Include="..\StringPrep\StringPrep.csproj" />
+    <ProjectReference Include="..\TestClient\TurnClient.csproj" />
+    <ProjectReference Include="..\TurnHub\TurnHub.csproj" />
+    <ProjectReference Include="..\TURN\TURN.csproj" />
+  </ItemGroup>
+</Project>
