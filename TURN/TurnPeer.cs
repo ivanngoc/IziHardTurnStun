@@ -1,4 +1,5 @@
 ﻿using IziHardGames.STUN.Attributes;
+using IziHardGames.STUN.Domain.Headers;
 using System;
 using System.Net;
 

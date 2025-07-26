@@ -1,13 +1,16 @@
 ﻿#pragma warning disable
-using StringPrep;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using IziHardGames;
-using System.Net.Sockets;
+using IziHardGames.STUN.Contracts;
+using IziHardGames.STUN.Domain.Headers;
+using IziHardGames.STUN.STUN;
+using StringPrep;
 
 namespace IziHardGames.STUN
 {
@@ -92,7 +95,6 @@ namespace IziHardGames.STUN
         #region Write
         public void Send()
         {
-            connectionForStun.stunClient.logger.Log($"Send:{headerForSender.Data.ToStringInfo()}");
             //countSends++;
             //var method = System.Reflection.MethodBase.GetCurrentMethod();
             //ConsoleWrap.Green($"{DateTime.Now}	{method.DeclaringType.FullName.ToUpper()}.{method.Name.ToUpper()}() #{countSends} position: {length} TransID: {headerForSender.ToStringTransactionIdAsHex()}{Environment.NewLine}{BitConverter.ToString(bufferSend.Take(length).ToArray())}");

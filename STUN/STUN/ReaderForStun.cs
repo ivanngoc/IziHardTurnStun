@@ -6,14 +6,16 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using static IziHardGames.STUN.ReaderForStun;
-using static IziHardGames.STUN.StunHeader;
+using static IziHardGames.STUN.STUN.ReaderForStun;
+using static IziHardGames.STUN.Domain.Headers.StunHeader;
 using TData = System.ReadOnlySpan<byte>;
 using static IziHardGames.STUN.ConstantsForStun;
 using System.Security.Cryptography;
+using IziHardGames.STUN.Domain.Headers;
+using Microsoft.Extensions.Logging;
 
 
-namespace IziHardGames.STUN
+namespace IziHardGames.STUN.STUN
 {
     public class ReaderForStun
     {
@@ -65,7 +67,7 @@ namespace IziHardGames.STUN
             dummyAttrReader = HandleAttrDummy;
             dummyMethodHandler = DummyMethodHandler;
 
-            this.client = connectionForStun.stunClient;
+            client = connectionForStun.stunClient;
 
             InitilizeMethodHandlers();
 
@@ -75,44 +77,44 @@ namespace IziHardGames.STUN
             actionsPerAttributeType = new Dictionary<int, RouteAttributeData>()
             {
                 //STUN
-                [ConstantsForStun.ATTR_Mapped_Address] = HandleAttrMappedAddress,
-                [ConstantsForStun.ATTR_XOR_Mapped_Address] = dummyAttrReader,
-                [ConstantsForStun.ATTR_Username] = HandleAttrUserName,
-                [ConstantsForStun.ATTR_MessageIntegrity] = dummyAttrReader,
-                [ConstantsForStun.ATTR_Fingerprint] = dummyAttrReader,
-                [ConstantsForStun.ATTR_Error_Code] = HandleAttrError,
-                [ConstantsForStun.ATTR_Realm] = HandleAttrRealm,
-                [ConstantsForStun.ATTR_Nonce] = HandleAttrNonce,
-                [ConstantsForStun.ATTR_Unknown_Attributes] = dummyAttrReader,
-                [ConstantsForStun.ATTR_Software] = HandleAttrSoftware,
-                [ConstantsForStun.ATTR_Alternate_Server] = dummyAttrReader,
+                [ATTR_Mapped_Address] = HandleAttrMappedAddress,
+                [ATTR_XOR_Mapped_Address] = dummyAttrReader,
+                [ATTR_Username] = HandleAttrUserName,
+                [ATTR_MessageIntegrity] = dummyAttrReader,
+                [ATTR_Fingerprint] = dummyAttrReader,
+                [ATTR_Error_Code] = HandleAttrError,
+                [ATTR_Realm] = HandleAttrRealm,
+                [ATTR_Nonce] = HandleAttrNonce,
+                [ATTR_Unknown_Attributes] = dummyAttrReader,
+                [ATTR_Software] = HandleAttrSoftware,
+                [ATTR_Alternate_Server] = dummyAttrReader,
 
                 //ICE
-                [ConstantsForStun.ATTR_PRIORITY] = dummyAttrReader,
-                [ConstantsForStun.ATTR_USE_CANDIDATE] = dummyAttrReader,
-                [ConstantsForStun.ATTR_ICE_CONTROLLED] = dummyAttrReader,
-                [ConstantsForStun.ATTR_ICE_CONTROLLING] = dummyAttrReader,
+                [ATTR_PRIORITY] = dummyAttrReader,
+                [ATTR_USE_CANDIDATE] = dummyAttrReader,
+                [ATTR_ICE_CONTROLLED] = dummyAttrReader,
+                [ATTR_ICE_CONTROLLING] = dummyAttrReader,
 
                 //NAT 
-                [ConstantsForStun.ATTR_CHANGE_REQUEST] = (x) => throw new NotImplementedException(encoding.GetString(x)),
-                [ConstantsForStun.ATTR_RESPONSE_PORT] = (x) => throw new NotImplementedException(encoding.GetString(x)),
-                [ConstantsForStun.ATTR_PADDING] = (x) => throw new NotImplementedException(encoding.GetString(x)),
-                [ConstantsForStun.ATTR_CACHE_TIMEOUT] = (x) => throw new NotImplementedException(encoding.GetString(x)),
-                [ConstantsForStun.RESPONSE_ORIGIN] = HandleAttrRESPONSE_ORIGIN,
-                [ConstantsForStun.OTHER_ADDRESS] = HandleAttrOTHER_ADDRESS,
+                [ATTR_CHANGE_REQUEST] = (x) => throw new NotImplementedException(encoding.GetString(x)),
+                [ATTR_RESPONSE_PORT] = (x) => throw new NotImplementedException(encoding.GetString(x)),
+                [ATTR_PADDING] = (x) => throw new NotImplementedException(encoding.GetString(x)),
+                [ATTR_CACHE_TIMEOUT] = (x) => throw new NotImplementedException(encoding.GetString(x)),
+                [RESPONSE_ORIGIN] = HandleAttrRESPONSE_ORIGIN,
+                [OTHER_ADDRESS] = HandleAttrOTHER_ADDRESS,
             };
 
             var setForBinding = new SetPerMethod(METHOD_BINDING);
             attributeHanndlersPerMethod.Add(METHOD_BINDING, setForBinding);
 
-            setForBinding.AddHandler(ConstantsForStun.CLASS_SUCCESS_RESPONSE, ConstantsForStun.ATTR_Mapped_Address, HandleAtMethodBindAttrMappedAddress);
-            setForBinding.AddHandler(ConstantsForStun.CLASS_SUCCESS_RESPONSE, ConstantsForStun.ATTR_XOR_Mapped_Address, HandleAtMethodBindAttrMappedAddressXor);
+            setForBinding.AddHandler(CLASS_SUCCESS_RESPONSE, ATTR_Mapped_Address, HandleAtMethodBindAttrMappedAddress);
+            setForBinding.AddHandler(CLASS_SUCCESS_RESPONSE, ATTR_XOR_Mapped_Address, HandleAtMethodBindAttrMappedAddressXor);
         }
 
         #region Read Handlers Origin
         private void HandleAttrOTHER_ADDRESS(TData memory)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
         private void HandleAttrRESPONSE_ORIGIN(TData memory)
         {
@@ -123,12 +125,12 @@ namespace IziHardGames.STUN
             {
                 AttributeDataForIPv4 data = AttributeDataForIPv4.FromMemory(memory);
                 iPAddress = data.IPAddressXor;
-                client.logger.LogAttributeInterpetation($"{nameof(HandleAttrRESPONSE_ORIGIN)}" + stunMappedAddress.ToStringInfo() + data.ToStringInfo());
+                //client.logger.LogAttributeInterpetation($"{nameof(HandleAttrRESPONSE_ORIGIN)}" + stunMappedAddress.ToStringInfo() + data.ToStringInfo());
             }
             else if (stunMappedAddress.AddressFamily == AddressFamily.InterNetwork)
             {
                 AttributeDataForIPv6 data = AttributeDataForIPv6.FromMemory(memory);
-                client.logger.LogAttributeInterpetation($"{nameof(HandleAttrRESPONSE_ORIGIN)}" + stunMappedAddress.ToStringInfo() + data.ToStringInfo());
+                //client.logger.LogAttributeInterpetation($"{nameof(HandleAttrRESPONSE_ORIGIN)}" + stunMappedAddress.ToStringInfo() + data.ToStringInfo());
             }
             else
             {
@@ -156,12 +158,12 @@ namespace IziHardGames.STUN
         {
             var span = memory.Slice(0, 4);
             StunErrorCode stunErrorCode = StunErrorCode.FromBuffer(memory);
-            client.logger.LogAttrError(stunErrorCode, memory);
+            //client.logger.LogError(stunErrorCode, memory);
         }
         private void HandleAttrUserName(TData memory)
         {
             username = encoding.GetString(memory);
-            client.logger.LogAttributeInterpetation($"UserName:{username}");
+            //client.logger.LogAttributeInterpetation($"UserName:{username}");
 #if DEBUG
             //Console.WriteLine(new SASLprep().Prepare(username));
 #endif
@@ -176,13 +178,13 @@ namespace IziHardGames.STUN
             {
                 AttributeDataForIPv4 data = AttributeDataForIPv4.FromMemory(memory);
                 iPAddress = data.IPAddress;
-                client.logger.LogAttributeInterpetation(stunMappedAddress.ToStringInfo() + data.ToStringInfo());
+                //client.logger.LogAttributeInterpetation(stunMappedAddress.ToStringInfo() + data.ToStringInfo());
                 OnMappedAdressEvent?.Invoke(stunMappedAddress);
             }
             else if (stunMappedAddress.AddressFamily == AddressFamily.InterNetwork)
             {
                 AttributeDataForIPv6 data = AttributeDataForIPv6.FromMemory(memory);
-                client.logger.LogAttributeInterpetation(stunMappedAddress.ToStringInfo() + data.ToStringInfo());
+                //client.logger.LogAttributeInterpetation(stunMappedAddress.ToStringInfo() + data.ToStringInfo());
             }
             else
             {
@@ -203,13 +205,13 @@ namespace IziHardGames.STUN
                 connectionForStun.addressMappedOnBindData = data;
                 connectionForStun.addressMappedOnBindIp = iPAddress;
 
-                client.logger.LogAttributeInterpetation($"{nameof(HandleAtMethodBindAttrMappedAddress)}" + value.ToStringInfo() + data.ToStringInfo());
+                //client.logger.LogAttributeInterpetation($"{nameof(HandleAtMethodBindAttrMappedAddress)}" + value.ToStringInfo() + data.ToStringInfo());
                 OnMappedAdressEvent?.Invoke(value);
             }
             else if (value.AddressFamily == AddressFamily.InterNetwork)
             {
                 AttributeDataForIPv6 data = AttributeDataForIPv6.FromMemory(memory);
-                client.logger.LogAttributeInterpetation($"{nameof(HandleAtMethodBindAttrMappedAddress)}" + value.ToStringInfo() + data.ToStringInfo());
+                //client.logger.LogAttributeInterpetation($"{nameof(HandleAtMethodBindAttrMappedAddress)}" + value.ToStringInfo() + data.ToStringInfo());
             }
             else
             {
@@ -230,13 +232,13 @@ namespace IziHardGames.STUN
                 connectionForStun.addressMappedXorOnBindData = data;
                 connectionForStun.addressMappedXorOnBindIp = iPAddress;
 
-                client.logger.LogAttributeInterpetation($"{nameof(HandleAtMethodBindAttrMappedAddressXor)}" + value.ToStringInfoXor() + data.ToStringInfoXor());
+                //client.logger.LogAttributeInterpetation($"{nameof(HandleAtMethodBindAttrMappedAddressXor)}" + value.ToStringInfoXor() + data.ToStringInfoXor());
                 OnMappedAdressEvent?.Invoke(value);
             }
             else if (value.AddressFamily == AddressFamily.InterNetwork)
             {
                 AttributeDataForIPv6 data = AttributeDataForIPv6.FromMemory(memory);
-                client.logger.LogAttributeInterpetation($"{nameof(HandleAtMethodBindAttrMappedAddressXor)}" + value.ToStringInfoXor() + data.ToStringInfoXor());
+                //client.logger.LogAttributeInterpetation($"{nameof(HandleAtMethodBindAttrMappedAddressXor)}" + value.ToStringInfoXor() + data.ToStringInfoXor());
             }
             else
             {
@@ -247,11 +249,11 @@ namespace IziHardGames.STUN
 
         protected void DummyMethodHandler()
         {
-            client.logger.LogStunReadHeaderCompletes($"No Dedicated Handler For Method. Header is read. {lastHeaderForStun.ToStringInfo()}");
+            //client.logger.LogStunReadHeaderCompletes($"No Dedicated Handler For Method. Header is read. {lastHeaderForStun.ToStringInfo()}");
         }
         protected void HandleAttrDummy(TData memory)
         {
-            client.logger.LogAttributeInterpetation($"{nameof(HandleAttrDummy)} StunHeader:{lastHeaderForStun.ToStringInfo()}.  AttrHeader:{lastHeaderForAttr.ToStringInfo()}    Data:{memory.ToUtf16()}", ConsoleColor.Red);
+            //client.logger.LogAttributeInterpetation($"{nameof(HandleAttrDummy)} StunHeader:{lastHeaderForStun.ToStringInfo()}.  AttrHeader:{lastHeaderForAttr.ToStringInfo()}    Data:{memory.ToUtf16()}", ConsoleColor.Red);
         }
         #endregion
 
@@ -265,33 +267,33 @@ namespace IziHardGames.STUN
         /// </summary>
         /// <param name="dgram"></param>
         /// <exception cref="FormatException"></exception>
-        private void ReadUdpDatagram(ReadOnlySpan<byte> dgram)
+        private void ReadUdpDatagram(TData dgram)
         {
             DataStunHeader dsh = lastHeaderForStun = dgram.ToStruct<DataStunHeader>();
             Console.WriteLine(dgram.ToUtf16());
             Console.WriteLine(dgram.ToBase64());
-            client.logger.LogStunHeader(dsh);
+            //client.logger.LogStunHeader(dsh);
 
-            if (dsh.magicCookie != StunHeader.MAGIC_COOKIE_FOR_CLIENT)
+            if (dsh.magicCookie != MAGIC_COOKIE_FOR_CLIENT)
             {
                 throw new FormatException($"Wrong Header {dsh.ToStringInfo()}");
             }
 
             int length = dsh.Length;
-            int offset = StunHeader.SIZE;
+            int offset = SIZE;
 
             while (length > 0)
             {
                 AttributeForStun attr = lastHeaderForAttr = dgram.Slice(offset, AttributeForStun.SIZE).ToStruct<AttributeForStun>();
-                client.logger.LogAttribute(attr);
-                int dataLength = (int)attr.Length;
+                //client.logger.LogAttribute(attr);
+                int dataLength = attr.Length;
                 int dataLengthAligned = dataLength.AlignToBoundry(4);
                 int size = dataLengthAligned + AttributeForStun.SIZE;
                 offset += AttributeForStun.SIZE;
-                ReadOnlySpan<byte> attrData = dgram.Slice(offset, dataLengthAligned);
+                TData attrData = dgram.Slice(offset, dataLengthAligned);
                 offset += dataLengthAligned;
                 length -= size;
-                client.logger.LogAttributeData(attr, attrData);
+                //client.logger.LogAttributeData(attr, attrData);
                 actionsPerAttributeType[attr.Type].Invoke(attrData);
                 attributeHanndlersPerMethod[dsh.messageType.Method].Handle(dsh.messageType.Class, attr.Type, attrData);
             }
@@ -311,7 +313,7 @@ namespace IziHardGames.STUN
             if (count > 0)
             {
                 DataStunHeader dsh = lastHeaderForStun = DataStunHeader.FromBuffer(bufferForResponseHeader);
-                client.logger.LogStunHeader(dsh);
+                //client.logger.LogStunHeader(dsh);
 
                 // check magic cookie
                 if (header.IsMatchMagicCookie(bufferForResponseHeader))
@@ -323,7 +325,7 @@ namespace IziHardGames.STUN
                         int read = stream.Read(bufferAttributeResponse, 0, 4);
 
                         AttributeForStun attr = lastHeaderForAttr = AttributeForStun.FromBuffer(bufferAttributeResponse, 0);
-                        client.logger.LogAttribute(attr);
+                        //client.logger.LogAttribute(attr);
 
                         int length = attr.Length;
                         int lengthAligned = length.AlignToBoundry(4);
@@ -334,7 +336,7 @@ namespace IziHardGames.STUN
                             var attrData = new Span<byte>(rent, 0, length);
                             int readedData = stream.Read(attrData);
 
-                            client.logger.LogAttributeData(attr, attrData);
+                            //client.logger.LogAttributeData(attr, attrData);
 
                             actionsPerAttributeType[attr.Type].Invoke(attrData);
                             attributeHanndlersPerMethod[dsh.messageType.Method].Handle(dsh.messageType.Class, attr.Type, attrData);
@@ -348,7 +350,7 @@ namespace IziHardGames.STUN
                 {
                     throw new FormatException($"STUN Magic Cookie is not Valid");
                 }
-                client.logger.LogStunHeader(dsh);
+                //client.logger.LogStunHeader(dsh);
                 methodHandlers[dsh.messageType.GetStunMethodValue()].Invoke();
             }
         }
@@ -393,7 +395,7 @@ namespace IziHardGames.STUN
                     actionsPerAttributeType[stunAttribute.Type].Invoke(memory);
                 }
                 position += 4 + lengthAligned;
-                lengthTotal -= (4 + lengthAligned);
+                lengthTotal -= 4 + lengthAligned;
                 //Console.WriteLine($"Length Total {lengthTotal}");
             }
         }
@@ -440,12 +442,12 @@ namespace IziHardGames.STUN
 
         protected void ReactOnMethodBinding()
         {
-            client.logger.LogHandler(nameof(METHOD_BINDING));
+            //client.logger.LogHandler(nameof(METHOD_BINDING));
         }
 
         public T FindAttributeData<T>() where T : unmanaged
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         #region Static 

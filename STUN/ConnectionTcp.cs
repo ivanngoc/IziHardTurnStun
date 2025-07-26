@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using IziHardGames.STUN.Contracts;
 
 namespace IziHardGames.STUN
 {

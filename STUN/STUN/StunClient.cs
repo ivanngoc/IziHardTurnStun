@@ -3,18 +3,19 @@ using System.IO;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
-namespace IziHardGames.STUN
+namespace IziHardGames.STUN.STUN
 {
     public class StunClient : ISTUNClient, IDisposable
     {
         public string name;
-        public readonly Logger logger;
+        public readonly ILogger logger;
         protected CancellationTokenSource cts;
 
-        public StunClient()
+        public StunClient(ILogger logger)
         {
-            logger = new Logger(this);
+            this.logger = logger;
         }
         protected virtual void InitilizeConnection(ConnectionForStun con)
         {

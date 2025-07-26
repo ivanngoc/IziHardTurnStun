@@ -1,6 +1,7 @@
 ﻿using IziHardGames.Networking.IANA;
 using IziHardGames.STUN;
 using IziHardGames.STUN.Attributes;
+using IziHardGames.STUN.Domain.Headers;
 using System;
 using System.Net;
 using System.Reflection;

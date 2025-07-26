@@ -1,5 +1,7 @@
-﻿using IziHardGames.STUN.Attributes;
+﻿using IziHardGames.STUN.Domain.Headers;
+using IziHardGames.STUN.STUN;
 using IziHardGames.TURN;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Net;
 
 namespace IziHardGames.STUN
 {
-    public class TurnClient : StunClient
+    public class TurnClient(ILogger logger) : StunClient(logger)
     {
         /// <summary>
         /// https://datatracker.ietf.org/doc/html/rfc5389#section-7.2.2
@@ -50,7 +52,7 @@ namespace IziHardGames.STUN
 
             if (peer != null && con.Protocol == ConnectionForStun.UDP)
             {
-                logger.Log($"Client:{name} SendTo:{name}. {message}. Host:{peer.SendingHost} Port:{peer.SendingPort}");
+                logger.LogDebug($"Client:{name} SendTo:{name}. {message}. Host:{peer.SendingHost} Port:{peer.SendingPort}");
                 con.SenderForTurn.DoMethodSend(con, peer, message);
             }
             else

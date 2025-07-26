@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using IziHardGames;
 using IziHardGames.STUN;
 using System;
 using System.Diagnostics;
@@ -10,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using IziHardGames.STUN.STUN;
 
 namespace IziHardGames
 {
@@ -57,8 +57,6 @@ namespace IziHardGames
 			Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}	{method.DeclaringType.FullName}.{method.Name}() thread	{Thread.CurrentThread.ManagedThreadId} PROGRAM STARTED");
 
 			Initilize();
-
-			CoturnClient.Test(coturnConnection);
 
 			while (true)
 			{

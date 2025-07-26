@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using TData = System.ReadOnlySpan<byte>;
 
-namespace IziHardGames.STUN
+namespace IziHardGames.STUN.Domain.Headers
 {
     /// <summary>
     /// https://datatracker.ietf.org/doc/html/rfc5389#section-15.6
@@ -12,14 +12,14 @@ namespace IziHardGames.STUN
     [StructLayout(LayoutKind.Explicit, Size = 4, CharSet = CharSet.Unicode)]
     public struct StunErrorCode
     {
-        [FieldOffset(0)] public UInt16 reserved;
+        [FieldOffset(0)] public ushort reserved;
         /// <summary>
         /// 0x0004 = 0x0400 в BIG ENDIAN. это ошибка 400
         /// </summary>
-        [FieldOffset(2)] public UInt16 comboClassAndNumber;
+        [FieldOffset(2)] public ushort comboClassAndNumber;
 
-        public const UInt16 MASK_CLASS = 0b_0000_0000_1110_0000;
-        public const UInt16 MASK_NUMBER = 0b_0000_0000_0001_1111;
+        public const ushort MASK_CLASS = 0b_0000_0000_1110_0000;
+        public const ushort MASK_NUMBER = 0b_0000_0000_0001_1111;
 
         public const int BE_MASK_CLASS = 0b_1110_0000_0000_0000;
         public const int BE_MASK_NUMBER = 0b_0001_1111_0000_0000;

@@ -1,6 +1,9 @@
 ﻿using IziHardGames.STUN;
 using IziHardGames.STUN.Attributes;
+using IziHardGames.STUN.Domain.Headers;
+using IziHardGames.STUN.STUN;
 using IziHardGames.TURN;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Net;
@@ -17,7 +20,7 @@ namespace IziHardGames
         private StunConnectionConfig config;
         public int id;
         protected bool isConnected;
-        public CoturnClient(string name) : base()
+        public CoturnClient(string name, ILogger<CoturnClient> logger) : base(logger)
         {
             this.name = name;
         }
@@ -37,7 +40,7 @@ namespace IziHardGames
         {
             this.config = config;
 
-            ConnectionForTurn connection = new ConnectionForTurn(this, config);
+            ConnectionForTurn connection = new ConnectionForTurn(this, config, logger);
             connection.EnsureReadedAndSender();
             connection.DoMethodBind();
 
@@ -63,39 +66,6 @@ namespace IziHardGames
             connections.Clear();
         }
 
-        #region Static
-#if DEBUG
-        public static void Test(StunConnectionConfig config)
-        {
-            var method = System.Reflection.MethodBase.GetCurrentMethod();
-            Console.WriteLine($"{DateTime.Now}	{method.DeclaringType.FullName}.{method.Name}()");
-            if (false)
-            {
-                SenderForStun.TestPreset();
-                SenderForStun.Test0();
-                SenderForStun.Test1();
-                Console.WriteLine($"Completed");
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                //Console.ReadLine();
-            }
-
-            CoturnClient turnClient = new CoturnClient("TestClient555");
-
-            Task.Factory.StartNew(() => turnClient.DevRun(config));
-            //turnClient.Run().RunSynchronously();
-
-            while (true)
-            {
-
-            }
-        }
-#endif
-
-        #endregion
 
         #region Test
         public Task DevRun(StunConnectionConfig configDocker)

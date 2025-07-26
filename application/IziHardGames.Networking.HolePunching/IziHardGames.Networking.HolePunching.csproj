@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ProjectGuid>646e0bbb-3ac1-4adf-ba94-8a8b11173b39</ProjectGuid>
+    <RootNamespace>IziHardGames.Networking.HolePunching</RootNamespace>
+  </PropertyGroup>
+</Project>

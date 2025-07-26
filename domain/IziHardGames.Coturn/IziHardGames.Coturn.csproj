@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>IziHardGames.Coturn</RootNamespace>
+    <ProjectGuid>7e8130e9-77c5-4d4b-a6fa-fb5e52c38731</ProjectGuid>
+    <Authors>Tran Ngoc Anh</Authors>
+  </PropertyGroup>
+</Project>

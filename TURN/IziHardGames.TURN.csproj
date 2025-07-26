@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ProjectName>TURN</ProjectName>
+    <TargetFramework>net9.0</TargetFramework>
     <ProjectGuid>c1ceb1de-3c9d-4f78-9cd6-ae4f219303a8</ProjectGuid>
     <Author>Tran Ngoc Anh</Author>
     <Company>IziHardGames</Company>
+    <RootNamespace>IziHardGames.Networking.STUN</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.IO.Pipelines" />
@@ -13,6 +13,6 @@
     <ProjectReference Include="..\Extensions\Extensions.csproj" />
     <ProjectReference Include="..\IANA\IANA.csproj" />
     <ProjectReference Include="..\LibNetStandart2.1\LibNetStandart2.1.csproj" />
-    <ProjectReference Include="..\STUN\STUN.csproj" />
+    <ProjectReference Include="..\STUN\IziHardGames.STUN.csproj" />
   </ItemGroup>
 </Project>

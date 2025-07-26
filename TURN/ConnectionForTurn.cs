@@ -1,6 +1,9 @@
 ﻿using IziHardGames.Networking.IANA;
 using IziHardGames.STUN;
 using IziHardGames.STUN.Attributes;
+using IziHardGames.STUN.Domain.Headers;
+using IziHardGames.STUN.STUN;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -45,7 +48,7 @@ namespace IziHardGames.TURN
 
         public event Action OnPermissionSuccessEvent;
 
-        public ConnectionForTurn(TurnClient turnClient, StunConnectionConfig config) : base(turnClient, config)
+        public ConnectionForTurn(TurnClient turnClient, StunConnectionConfig config, ILogger logger) : base(turnClient, config, logger)
         {
             this.turnClient = turnClient;
 

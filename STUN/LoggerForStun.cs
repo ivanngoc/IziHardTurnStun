@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
-using static IziHardGames.STUN.StunHeader;
+using IziHardGames.STUN.Domain.Headers;
+using IziHardGames.STUN.STUN;
+using static IziHardGames.STUN.Domain.Headers.StunHeader;
 
 namespace IziHardGames.STUN
 {

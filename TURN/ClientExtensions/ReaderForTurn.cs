@@ -1,11 +1,13 @@
 ﻿using IziHardGames.STUN;
 using IziHardGames.STUN.Attributes;
+using IziHardGames.STUN.Domain.Headers;
+using IziHardGames.STUN.STUN;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using static IziHardGames.STUN.StunHeader;
+using static IziHardGames.STUN.Domain.Headers.StunHeader;
 using TData = System.ReadOnlySpan<byte>;
 
 namespace IziHardGames.TURN
@@ -54,7 +56,7 @@ namespace IziHardGames.TURN
 
         public void HandleAtMethodDataAttrData(TData memory)
         {
-            client.logger.Log($"{nameof(HandleAtMethodDataAttrData)}    " + memory.ToUtf16());
+            //client.logger.Log($"{nameof(HandleAtMethodDataAttrData)}    " + memory.ToUtf16());
         }
 
         /// <see cref="ConstantsForTurn.ATTR_Requested_Transport"/>
@@ -62,7 +64,7 @@ namespace IziHardGames.TURN
         {
             TurnRequestedTransport val = TurnRequestedTransport.FromBuffer(memory);
             //Console.WriteLine($"{nameof(HandleRequestedTransport)} {val.ToStringInfo()}");
-            client.logger.LogAttributeInterpetation(val.ToStringInfo());
+            //client.logger.LogAttributeInterpetation(val.ToStringInfo());
             connectionForTurn.SetTransport(val);
         }
 
@@ -73,7 +75,7 @@ namespace IziHardGames.TURN
         private void HandleAttrLifetime(TData memory)
         {
             connectionForTurn.Lifetime = memory.ToStruct<uint>();
-            client.logger.LogAttributeInterpetation($"Lifetime:{connectionForTurn.Lifetime}");
+            //client.logger.LogAttributeInterpetation($"Lifetime:{connectionForTurn.Lifetime}");
         }
 
         /// <see cref="ConstantsForTurn.ATTR_XOR_Relayed_Address"/>
@@ -92,12 +94,12 @@ namespace IziHardGames.TURN
                 connectionForTurn.addressRelayedXorData = data;
                 connectionForTurn.addressRelayedXorIp = data.IPAddressXor;
 
-                client.logger.LogAttributeInterpetation($"{nameof(HandleAttrXorRelayedAddress)}" + value.ToStringInfoXor() + data.ToStringInfoXor());
+                //client.logger.LogAttributeInterpetation($"{nameof(HandleAttrXorRelayedAddress)}" + value.ToStringInfoXor() + data.ToStringInfoXor());
             }
             else if (value.AddressFamily == AddressFamily.InterNetwork)
             {
                 AttributeDataForIPv6 data = AttributeDataForIPv6.FromMemory(memory);
-                client.logger.LogAttributeInterpetation($"{nameof(HandleAttrXorRelayedAddress)}" + value.ToStringInfoXor() + data.ToStringInfoXor());
+                //client.logger.LogAttributeInterpetation($"{nameof(HandleAttrXorRelayedAddress)}" + value.ToStringInfoXor() + data.ToStringInfoXor());
             }
             else
             {
@@ -142,7 +144,7 @@ namespace IziHardGames.TURN
         }
         private void ReactOnMethodPermission()
         {
-            client.logger.LogHandler(nameof(ConstantsForTurn.METHOD_CREATE_PERMISSION));
+            //client.logger.LogHandler(nameof(ConstantsForTurn.METHOD_CREATE_PERMISSION));
             connectionForTurn.ReportPermissionGranted();
         }
     }

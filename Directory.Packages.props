@@ -9,6 +9,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Bogus" Version="35.6.3" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="9.0.7" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.7" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="9.0.7" />
+    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
   </ItemGroup>
   <ItemGroup>
     <!--<PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />-->
@@ -36,11 +40,9 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.1" />
-  
     <PackageVersion Include="System.Text.Json" Version="9.0.1" />
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="6.0.0" />
     <PackageVersion Include="System.IO.Pipelines" Version="7.0.0" />
-
   </ItemGroup>
   <ItemGroup>
     <!--<PackageVersion Include="HtmlAgilityPack" Version="1.11.74" />
@@ -70,6 +72,7 @@
     <PackageVersion Include="IziHardGames.ErrorHandling" Version="0.0.2" />
     <PackageVersion Include="IziHardGames.ErrorHandling.AspNetCore" Version="0.0.1" />
     <PackageVersion Include="IziHardGames.DomControl.Client" Version="0.0.16" />-->
+    <PackageVersion Include="IziHardGames.Binary" Version="0.0.3" />
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />

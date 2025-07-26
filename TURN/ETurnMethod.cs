@@ -1,4 +1,4 @@
-﻿using static IziHardGames.STUN.StunHeader;
+﻿using static IziHardGames.STUN.Domain.Headers.StunHeader;
 
 namespace IziHardGames.TURN
 {

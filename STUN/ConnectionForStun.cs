@@ -1,10 +1,15 @@
 ﻿using IziHardGames.Networking.IANA;
 using IziHardGames.STUN.Attributes;
+using IziHardGames.STUN.Contracts;
+using IziHardGames.STUN.Domain.Headers;
+using IziHardGames.STUN.STUN;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
-using static IziHardGames.STUN.StunHeader;
+using static IziHardGames.STUN.Domain.Headers.StunHeader;
 
 namespace IziHardGames.STUN
 {
@@ -17,7 +22,7 @@ namespace IziHardGames.STUN
         protected IConnection connection;
         public IConnection Connection => connection;
         protected readonly StunConnectionConfig config;
-
+        private readonly ILogger logger;
         protected bool isBinded;
         protected string serverSoftware;
 
@@ -43,10 +48,11 @@ namespace IziHardGames.STUN
         public IPAddress addressMappedXorOnBindIp;
 
 
-        public ConnectionForStun(StunClient stunClient, StunConnectionConfig config)
+        public ConnectionForStun(StunClient stunClient, StunConnectionConfig config, ILogger logger)
         {
             this.stunClient = stunClient;
             this.config = config;
+            this.logger = logger;
 
             switch (config.Protocol)
             {
@@ -101,7 +107,7 @@ namespace IziHardGames.STUN
             /// первая отправка для получения realm аттрибута от сервера. получение ошибки 401
             /// https://datatracker.ietf.org/doc/html/rfc5766#section-16 3 абзац
             //Allocate(stream);
-            ConsoleWrap.DarkRed($"FIRST MSG SEND");
+            //ConsoleWrap.DarkRed($"FIRST MSG SEND");
 
             ////await first answer to get nonce and realm
             //stunMessageReader.ReadOnce(tcpClient.GetStream());
@@ -139,7 +145,7 @@ namespace IziHardGames.STUN
         /// <inheritdoc cref="SenderForStun.MakeAuthenticationMessageShortTerm"/>
         /// <param name="tcpClient"></param>
         [Obsolete("Not Supported By Coturn")]
-        protected void AuthenticateWithShortTermCredentialMechanism(TcpClient tcpClient)
+        protected async Task AuthenticateWithShortTermCredentialMechanism(TcpClient tcpClient)
         {
             var stream = tcpClient.GetStream();
             StunHeader header = stunMessageSender.headerForSender;
@@ -166,8 +172,8 @@ namespace IziHardGames.STUN
             while (true)
             {
                 var b2 = new byte[1];
-                stream.Read(b2, 0, 1);
-                Console.WriteLine(BitConverter.ToString(b2));
+                await stream.ReadExactlyAsync(b2, CancellationToken.None);
+                logger.LogDebug(BitConverter.ToString(b2));
             }
         }
 

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using static IziHardGames.STUN.StunHeader;
+using IziHardGames.STUN.Contracts;
+using IziHardGames.STUN.Domain.Headers;
+using static IziHardGames.STUN.Domain.Headers.StunHeader;
 
 namespace IziHardGames.STUN
 {

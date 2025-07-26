@@ -1,4 +1,4 @@
-﻿using static IziHardGames.STUN.AttributeForStun;
+﻿using static IziHardGames.STUN.Domain.Headers.AttributeForStun;
 
 namespace IziHardGames.STUN
 {

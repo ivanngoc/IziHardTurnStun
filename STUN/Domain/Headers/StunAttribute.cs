@@ -5,17 +5,17 @@ using System.Collections.Generic;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Security.AccessControl;
-using IziHardGames;
 using IziHardGames.STUN.Attributes;
+using IziHardGames.STUN.STUN;
 using static IziHardGames.STUN.ConstantsForStun;
 
-namespace IziHardGames.STUN
+namespace IziHardGames.STUN.Domain.Headers
 {
     /// <summary>
     /// https://datatracker.ietf.org/doc/html/rfc5389#section-15
     /// https://www.iana.org/assignments/stun-parameters/stun-parameters.xhtml
     /// </summary>
-    [StructLayout(LayoutKind.Explicit, Size = AttributeForStun.SIZE, CharSet = CharSet.Ansi)]
+    [StructLayout(LayoutKind.Explicit, Size = SIZE, CharSet = CharSet.Ansi)]
     public struct AttributeForStun
     {
         /// <summary>
@@ -27,14 +27,14 @@ namespace IziHardGames.STUN
         public const int SIZE = 4;              // 0xFFFF;
         public const int INT_NOT_SET = 0xFFFF;  // 0xFFFF;
 
-        public const UInt16 NOT_SET = UInt16.MaxValue;
+        public const ushort NOT_SET = ushort.MaxValue;
 
 
 
-        [FieldOffset(0)] private UInt16 type;
-        [FieldOffset(2)] private UInt16 length;
-        public UInt16 Length => BinaryPrimitives.ReverseEndianness(length);
-        public UInt16 Type => BinaryPrimitives.ReverseEndianness(type);
+        [FieldOffset(0)] private ushort type;
+        [FieldOffset(2)] private ushort length;
+        public ushort Length => BinaryPrimitives.ReverseEndianness(length);
+        public ushort Type => BinaryPrimitives.ReverseEndianness(type);
         public string Name => GetAttributeName();
 
         static AttributeForStun()
@@ -99,7 +99,7 @@ namespace IziHardGames.STUN
         #region Static
         public static AttributeForStun FromBuffer(byte[] buffer, int indexStart)
         {
-            return MemoryMarshal.Cast<byte, AttributeForStun>(new Span<byte>(buffer, indexStart, AttributeForStun.SIZE))[0];
+            return MemoryMarshal.Cast<byte, AttributeForStun>(new Span<byte>(buffer, indexStart, SIZE))[0];
         }
         public static T GetObject<T>(byte[] buffer)
         {
@@ -128,10 +128,10 @@ namespace IziHardGames.STUN
                 bufferSend[offset + 2] = ptrlength[1];
                 bufferSend[offset + 3] = ptrlength[0];
 
-                Span<byte> dist = new Span<byte>(bufferSend, offset + AttributeForStun.SIZE, data.Length);
+                Span<byte> dist = new Span<byte>(bufferSend, offset + SIZE, data.Length);
                 data.CopyTo(dist);
 
-                return offset + AttributeForStun.SIZE + lengthDataAligned;
+                return offset + SIZE + lengthDataAligned;
             }
         }
         public static int PutToBuffer(byte[] bufferSend, int offset, ushort type, Memory<byte> data, ushort lengthDataAligned)
@@ -148,10 +148,10 @@ namespace IziHardGames.STUN
                 bufferSend[offset + 2] = ptrlength[1];
                 bufferSend[offset + 3] = ptrlength[0];
 
-                Span<byte> dist = new Span<byte>(bufferSend, offset + AttributeForStun.SIZE, data.Length);
+                Span<byte> dist = new Span<byte>(bufferSend, offset + SIZE, data.Length);
                 span.CopyTo(dist);
 
-                return offset + AttributeForStun.SIZE + lengthDataAligned;
+                return offset + SIZE + lengthDataAligned;
             }
         }
         public static int PutToBuffer(byte[] bufferSend, int offset, ushort type, int dataLength, byte[] data, ushort messageLength)
@@ -166,9 +166,9 @@ namespace IziHardGames.STUN
                 bufferSend[offset + 2] = ptrlength[1];
                 bufferSend[offset + 3] = ptrlength[0];
 
-                Buffer.BlockCopy(data, 0, bufferSend, offset + AttributeForStun.SIZE, dataLength);
+                Buffer.BlockCopy(data, 0, bufferSend, offset + SIZE, dataLength);
 
-                return offset + AttributeForStun.SIZE + messageLength;
+                return offset + SIZE + messageLength;
             }
         }
         public static int PutToBufferDummy(byte[] bufferSend, int offset, ushort type, int lengthData)
@@ -183,7 +183,7 @@ namespace IziHardGames.STUN
                 bufferSend[offset + 2] = ptrlength[1];
                 bufferSend[offset + 3] = ptrlength[0];
 
-                return offset + AttributeForStun.SIZE + lengthData;
+                return offset + SIZE + lengthData;
             }
         }
         public static int PutToBuffer<T>(byte[] buffer, int offset, ushort length, ushort type, T item) where T : unmanaged
@@ -199,9 +199,9 @@ namespace IziHardGames.STUN
                 buffer[offset + 2] = ptrlength[1];
                 buffer[offset + 3] = ptrlength[0];
             }
-            Span<T> span = MemoryMarshal.Cast<byte, T>(new Span<byte>(buffer, offset + AttributeForStun.SIZE, length));
+            Span<T> span = MemoryMarshal.Cast<byte, T>(new Span<byte>(buffer, offset + SIZE, length));
             span[0] = item;
-            return offset + length + AttributeForStun.SIZE;
+            return offset + length + SIZE;
         }
         public static int PutToBuffer(byte[] buffer, int offset, ushort type, StunAddress address, AttributeDataForIPv4 data)
         {
@@ -218,11 +218,11 @@ namespace IziHardGames.STUN
                 buffer[offset + 2] = ptrlength[1];
                 buffer[offset + 3] = ptrlength[0];
 
-                Span<StunAddress> spanAddress = MemoryMarshal.Cast<byte, StunAddress>(new Span<byte>(buffer, offset + AttributeForStun.SIZE, StunAddress.SIZE));
+                Span<StunAddress> spanAddress = MemoryMarshal.Cast<byte, StunAddress>(new Span<byte>(buffer, offset + SIZE, StunAddress.SIZE));
                 spanAddress[0] = address;
-                Span<AttributeDataForIPv4> spanData = MemoryMarshal.Cast<byte, AttributeDataForIPv4>(new Span<byte>(buffer, offset + AttributeForStun.SIZE + StunAddress.SIZE, AttributeDataForIPv4.SIZE));
+                Span<AttributeDataForIPv4> spanData = MemoryMarshal.Cast<byte, AttributeDataForIPv4>(new Span<byte>(buffer, offset + SIZE + StunAddress.SIZE, AttributeDataForIPv4.SIZE));
                 spanData[0] = data;
-                return offset + AttributeDataForIPv4.SIZE_WHOLE + AttributeForStun.SIZE;
+                return offset + AttributeDataForIPv4.SIZE_WHOLE + SIZE;
             }
         }
         #endregion

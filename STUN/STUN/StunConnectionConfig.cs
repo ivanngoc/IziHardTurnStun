@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace IziHardGames
+namespace IziHardGames.STUN.STUN
 {
     /// #Authentication and Message-Integrity Mechanisms
     /// https://datatracker.ietf.org/doc/html/rfc5389#section-10
@@ -52,7 +52,7 @@ namespace IziHardGames
 
         public StunConnectionConfig ShallowCopy()
         {
-            return this.MemberwiseClone() as StunConnectionConfig;
+            return MemberwiseClone() as StunConnectionConfig;
         }
     }
 }

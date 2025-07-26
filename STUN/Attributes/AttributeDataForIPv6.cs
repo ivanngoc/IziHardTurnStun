@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using IziHardGames.STUN.Domain.Headers;
 
 namespace IziHardGames.STUN.Attributes
 {

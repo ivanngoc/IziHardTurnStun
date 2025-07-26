@@ -1,0 +1,6 @@
+@IziHardGames.TurnClient_HostAddress = http://localhost:5102
+
+GET {{IziHardGames.TurnClient_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -21,7 +21,7 @@ namespace System
 		{
 			int size = Marshal.SizeOf<T>();
 			Span<byte> span = new Span<byte>(buffer, offset, size);
-			MemoryMarshal.Write(span, ref value);
+			MemoryMarshal.Write(span, in value);
 			return offset + size;
 		}
 	}

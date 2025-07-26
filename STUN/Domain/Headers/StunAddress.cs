@@ -5,10 +5,10 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
-using static IziHardGames.STUN.StunHeader;
+using static IziHardGames.STUN.Domain.Headers.StunHeader;
 using TData = System.ReadOnlySpan<byte>;
 
-namespace IziHardGames.STUN.Attributes
+namespace IziHardGames.STUN.Domain.Headers
 {
     /// <summary>
     /// https://datatracker.ietf.org/doc/html/rfc5389#section-15.1
@@ -17,7 +17,7 @@ namespace IziHardGames.STUN.Attributes
     ///  attribute, except that the reflexive transport address is obfuscated
     ///  through the XOR function.
     /// </summary>
-    [StructLayout(LayoutKind.Explicit, Size = StunAddress.SIZE)]
+    [StructLayout(LayoutKind.Explicit, Size = SIZE)]
     public struct StunAddress
     {
         public const int SIZE = 4;
@@ -37,6 +37,18 @@ namespace IziHardGames.STUN.Attributes
             set => xport = BinaryOrder.ReverseEndian(value ^ 0x2112);
         }
 
+        public int LengthFollowed
+        {
+            get
+            {
+                switch (family)
+                {
+                    case ConstantsForStun.IPv4: return 4;
+                    case ConstantsForStun.IPv6: return 8;
+                    default: throw new ArgumentOutOfRangeException(family.ToString());
+                }
+            }
+        }
 
         public AddressFamily AddressFamily
         {
@@ -61,7 +73,7 @@ namespace IziHardGames.STUN.Attributes
             {
                 family = ConstantsForStun.IPv6;
             }
-            this.PortXor = port;
+            PortXor = port;
         }
 
         public static StunAddress Xor(IPAddress address, int port)

@@ -1,15 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ProjectName>STUN</ProjectName>
+    <TargetFramework>net9.0</TargetFramework>
     <ProjectGuid>25decc4d-b7da-4e65-b630-530113c6a2f5</ProjectGuid>
     <Author>Tran Ngoc Anh</Author>
     <Company>IziHardGames</Company>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>IziHardGames.STUN</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
     <PackageReference Include="System.IO.Pipelines" />
   </ItemGroup>
   <ItemGroup>
@@ -17,5 +18,8 @@
     <ProjectReference Include="..\IANA\IANA.csproj" />
     <ProjectReference Include="..\LibNetStandart2.1\LibNetStandart2.1.csproj" />
     <ProjectReference Include="..\StringPrep\StringPrep.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="STUN\Attributes\" />
   </ItemGroup>
 </Project>

@@ -14,6 +14,9 @@ using System.Net;
 using IziHardGames.STUN.Attributes;
 using System.Buffers.Binary;
 using System.Threading;
+using IziHardGames.STUN.STUN;
+using IziHardGames.STUN.Domain.Headers;
+using Microsoft.Extensions.Logging;
 
 namespace TestCoturnClients
 {
@@ -39,6 +42,12 @@ namespace TestCoturnClients
 
         public void Execute1()
         {
+            var factory = LoggerFactory.Create(builder =>
+            {
+                builder
+                    .AddFilter("Microsoft", LogLevel.Warning) // filter logs
+                    .AddConsole(); // log to console
+            });
             TurnInit.Initilize();
 
             hubForTurnClients = new HubForTurnClients();
@@ -47,11 +56,11 @@ namespace TestCoturnClients
 
             Console.WriteLine(Convert.ToBase64String(BitConverter.GetBytes(StunHeader.MAGIC_COOKIE_FOR_CLIENT)));
 
-            CoturnClient client0 = new CoturnClient("Client0");
-            CoturnClient client1 = new CoturnClient("Client1");
+            CoturnClient client0 = new CoturnClient("Client0", factory.CreateLogger<CoturnClient>());
+            CoturnClient client1 = new CoturnClient("Client1", factory.CreateLogger<CoturnClient>());
 
-            client0.logger.SetColor(ConsoleColor.Yellow);
-            client1.logger.SetColor(ConsoleColor.Green);
+            //client0.logger.SetColor(ConsoleColor.Yellow);
+            //client1.logger.SetColor(ConsoleColor.Green);
             //client0.logger.Disable();
             //client1.logger.Disable();
 
@@ -116,6 +125,15 @@ namespace TestCoturnClients
         }
         public void Execute()
         {
+            using var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder
+                    .AddFilter("Microsoft", LogLevel.Warning) // filter logs
+                    .AddConsole(); // log to console
+            });
+
+            var logger = loggerFactory.CreateLogger<CoturnClient>();
+
             Configuration.ImportConfig(Directory.GetCurrentDirectory(), "config.json");
             StunConnectionConfig coturnConnection = new StunConnectionConfig();
             Configuration.configurationShared.GetSection("CoturnConnections:VirtualBox").Bind(coturnConnection);
@@ -125,7 +143,7 @@ namespace TestCoturnClients
             for (int i = 0; i < peerCount; i++)
             {
                 StunConnectionConfig conectionCopy = coturnConnection.ShallowCopy();
-                CoturnClient coturnClient = new CoturnClient($"Client_For_{i}");
+                CoturnClient coturnClient = new CoturnClient($"Client_For_{i}", logger);
                 coturnClients.Add(coturnClient);
                 Console.WriteLine($"Peer created {i}");
                 coturnClient.id = i;

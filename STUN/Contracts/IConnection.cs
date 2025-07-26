@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IziHardGames.STUN
+namespace IziHardGames.STUN.Contracts
 {
     public interface IConnection : IDisposable
     {

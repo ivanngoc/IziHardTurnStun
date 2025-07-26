@@ -1,9 +1,9 @@
 ﻿using IziHardGames.Networking.IANA;
-using IziHardGames.STUN;
+using IziHardGames.STUN.Domain.Headers;
 using System;
 using System.Net;
 using System.Threading;
-using static IziHardGames.STUN.StunHeader;
+using static IziHardGames.STUN.Domain.Headers.StunHeader;
 
 namespace IziHardGames.TURN
 {
