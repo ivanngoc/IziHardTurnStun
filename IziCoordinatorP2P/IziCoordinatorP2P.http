@@ -1,0 +1,6 @@
+@IziCoordinatorP2P_HostAddress = http://localhost:5092
+
+GET {{IziCoordinatorP2P_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

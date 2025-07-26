@@ -1,0 +1,7 @@
+#Verbose
+psql-userdb="host=host.docker.internal port=5432 dbname=coturn user=postgres password=postgres connect_timeout=60"
+no-auth
+realm=izihard
+verbose
+cli-password=qwerty
+web-admin

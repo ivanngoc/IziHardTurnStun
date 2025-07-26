@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Solution Items", ".Solutio
 		Directory.Packages.props = Directory.Packages.props
 		docker-compose.coturn.test.yml = docker-compose.coturn.test.yml
 		docker-compose.coturn.yml = docker-compose.coturn.yml
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{97E3539F-94BD-4FB8-8318-B3CBC0CF7D9D}"
@@ -64,6 +65,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "microservices", "microservices", "{6C894D73-EF81-4B53-A303-8B26154DD794}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IziHardGames.TurnClient", "microservices\IziHardGames.TurnClient\IziHardGames.TurnClient.csproj", "{75A3A288-AAD6-4826-BADF-1F8695E1B655}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IziCoordinatorP2P", "IziCoordinatorP2P\IziCoordinatorP2P.csproj", "{380F8A2C-31D8-4935-88CC-6B2F719D6586}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IziP2P", "domain\IziP2P\IziP2P.csproj", "{D78EAC97-0A5D-4E5F-809B-2FC81F9F9F26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +132,14 @@ Global
 		{75A3A288-AAD6-4826-BADF-1F8695E1B655}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75A3A288-AAD6-4826-BADF-1F8695E1B655}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75A3A288-AAD6-4826-BADF-1F8695E1B655}.Release|Any CPU.Build.0 = Release|Any CPU
+		{380F8A2C-31D8-4935-88CC-6B2F719D6586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{380F8A2C-31D8-4935-88CC-6B2F719D6586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{380F8A2C-31D8-4935-88CC-6B2F719D6586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{380F8A2C-31D8-4935-88CC-6B2F719D6586}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D78EAC97-0A5D-4E5F-809B-2FC81F9F9F26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D78EAC97-0A5D-4E5F-809B-2FC81F9F9F26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D78EAC97-0A5D-4E5F-809B-2FC81F9F9F26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D78EAC97-0A5D-4E5F-809B-2FC81F9F9F26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -147,6 +160,8 @@ Global
 		{99E60FD2-9D0F-428B-B54A-92E257E64194} = {B88A2A8C-EC9F-4C7A-830E-80ACE094BBE6}
 		{BFCE95BE-8BE9-4F87-82D1-B8ECFE74E3F6} = {9B1FCA85-E24D-4B05-965E-AA0C7217C6B9}
 		{75A3A288-AAD6-4826-BADF-1F8695E1B655} = {6C894D73-EF81-4B53-A303-8B26154DD794}
+		{380F8A2C-31D8-4935-88CC-6B2F719D6586} = {6C894D73-EF81-4B53-A303-8B26154DD794}
+		{D78EAC97-0A5D-4E5F-809B-2FC81F9F9F26} = {B88A2A8C-EC9F-4C7A-830E-80ACE094BBE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3A52635F-E051-4C10-8CBC-B869F9F15D8C}

@@ -13,6 +13,11 @@ namespace IziHardGames.TurnClient.Controllers
     [Route("[controller]/[action]")]
     public class StunController : ControllerBase
     {
+        //const string host = "127.0.0.1";
+        //const string host = "87.103.192.239";
+        const string host = "stun.l.google.com";
+        int port = 19302; // Common STUN port
+        //int port = 3478; // Common STUN port
         /// <summary>
         /// <seealso cref="DataStunHeader"/>
         /// </summary>
@@ -24,14 +29,16 @@ namespace IziHardGames.TurnClient.Controllers
                 0x63, 0xC7, 0x11, 0x8B, 0xA0, 0xE1, 0x0A, 0x43, 0xC1, 0xF3, 0x17, 0xA7 // Transaction ID
         };
         string stunServer = "localhost"; // Or your CoTURN server address
-        int port = 3478; // Common STUN port
 
         [HttpGet]
         public async Task<IActionResult> Connect()
         {
+            var host = StunController.host;
             using var udpClient = new UdpClient();
             udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, 0));
-            var endpoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
+            var ipParsed = await Dns.GetHostAddressesAsync(host);
+            //var parsedId = IPAddress.Parse(host);
+            var endpoint = new IPEndPoint(ipParsed[0], port);
             udpClient.Connect(endpoint);
 
             var sended = await udpClient.SendAsync(StunBindingRequest, CancellationToken.None);
